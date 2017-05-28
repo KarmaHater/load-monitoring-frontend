@@ -8,7 +8,6 @@ export default ({ data }) => {
             values: data.toArray() || []
         }
     ];
-
     return (
         <div>
             <AreaChart

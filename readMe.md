@@ -11,6 +11,7 @@ Collect the machine load (using “uptime” for example)
 + Whenever the load for the past 2 minutes exceeds 1 on average, add a message saying that “High load generated an alert - load = {value}, triggered at {time}”
 
 + Whenever the load average drops again below 1 on average for the past 2 minutes, Add another message explaining when the alert recovered.
+
 + Make sure all messages showing when alerting thresholds are crossed remain visible on the page for historical reasons.
 
 + Write a test for the alerting logic

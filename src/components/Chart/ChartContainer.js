@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { selectUptime } from './../../store/selectors';
+import { selectUptimes } from './../../store/selectors';
 import Chart from './Chart';
 
 class ChartContainer extends Component {
     render() {
         return (
             <div>
-                <Chart data={this.props.uptime} />
+                <Chart data={this.props.uptimes} />
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    uptime: selectUptime(state)
+    uptimes: selectUptimes(state)
 });
 
 export default connect(mapStateToProps)(ChartContainer);

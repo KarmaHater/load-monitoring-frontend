@@ -1,1 +1,1 @@
-export const selectUptime = (state) => state.get('uptime');
+export const selectUptimes = (state) => state.getIn(['uptime', 'uptimes']);

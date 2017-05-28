@@ -1,6 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import AlertContainer from '../components/Alert/AlertContainer';
 import ChartContainer from '../components/Chart/ChartContainer';
 import TimerContainer from '../components/Timer/TimerContainer';

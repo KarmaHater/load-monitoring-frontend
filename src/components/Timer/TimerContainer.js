@@ -10,7 +10,7 @@ const TIMER_INTERVAL = 10000;
 
 class TimerContainer extends Component {
     componentDidMount() {
-        this.sinterval = setInterval(() => this.timer(), 1000);
+        this.sinterval = setInterval(() => this.uptimeTimer(), 1000);
     }
 
     componentWillMount() {
@@ -19,7 +19,7 @@ class TimerContainer extends Component {
         }
     }
 
-    timer() {
+    uptimeTimer() {
         if (this.props.currentTimerCount % TIMER_INTERVAL === 0) {
             this.props.nextUptime(TIMER_INTERVAL);
             this.props.updateTimer();
