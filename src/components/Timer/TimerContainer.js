@@ -29,7 +29,6 @@ class TimerContainer extends Component {
     }
 
     render() {
-        console.log(this.props.currentTimerCount)
         return <Timer currentTimerCount={this.props.currentTimerCount} />;
     }
 }
