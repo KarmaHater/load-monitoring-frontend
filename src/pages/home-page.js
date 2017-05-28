@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ChartContainer from '../components/Chart/ChartContainer';
-import upstreamData from '../store/data/mockedUpstreamData'
+import TimerContainer from '../components/Timer/TimerContainer';
 
 const HomePage = () => (
     <div>
         <ChartContainer />
+        <TimerContainer />
     </div>
 );
 

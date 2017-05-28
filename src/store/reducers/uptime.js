@@ -1,6 +1,5 @@
 import { List } from 'immutable';
 import { NEXT_UPTIME } from '../constants';
-import uptimeData from '../data/mockedUpstreamData';
 
 const initialState = List([{x:0, y: 0}]);
 
