@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Alert from 'react-alert';
+import { updateThershold } from './../../store/actions';
 import _meanBy from 'lodash/meanBy';
+
 import {
     selectCurrentTimerCount,
     selectUptimes
@@ -31,14 +34,19 @@ class AlertContainer extends Component {
             const { currentTimerCount, uptimes } = nextProps;
             const average = averageUptimes(currentTimerCount, uptimes);
 
-            this.fireAlert(average);
+            this.fireAlert(average, nextProps.currentTimerCount);
         }
     }
 
-    fireAlert(average) {
-        parseFloat(average) < 1
-            ? this.showAlert('success', average)
-            : this.showAlert('error', average);
+    fireAlert(average, time) {
+
+        this.props.updateThershold(average, time);
+
+        if (parseFloat(average) < 1) {
+            this.showAlert('success', average);
+        } else {
+            this.showAlert('error', average);
+        }
     }
 
     message(average) {
@@ -66,6 +74,10 @@ const mapStateToProps = state => ({
     uptimes: selectUptimes(state)
 });
 
-export default connect(mapStateToProps)(AlertContainer);
+const mapDispatchToProps = dispatch => {
+    return {
+        updateThershold: bindActionCreators(updateThershold, dispatch)
+    };
+};
 
-// https://github.com/codesuki/react-d3-components#other-charts
+export default connect(mapStateToProps, mapDispatchToProps)(AlertContainer);
