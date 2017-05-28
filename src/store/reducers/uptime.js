@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
         counter1++;
         counter2 = Math.random().toFixed(2);
         return state.update('uptimes', list =>
-                list.push({ x: counter1, y: counter2 })
+                list.push({ x: parseFloat(counter1), y: parseFloat(counter2) })
             );
     default:
         return state;

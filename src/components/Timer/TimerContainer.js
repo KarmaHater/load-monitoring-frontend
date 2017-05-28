@@ -21,7 +21,7 @@ class TimerContainer extends Component {
 
     uptimeTimer() {
         if (this.props.currentTimerCount % TIMER_INTERVAL === 0) {
-            this.props.nextUptime(TIMER_INTERVAL);
+            this.props.nextUptime();
             this.props.updateTimer();
         } else {
             this.props.updateTimer();

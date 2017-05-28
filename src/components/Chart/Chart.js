@@ -5,7 +5,7 @@ export default ({ data }) => {
     const chartData = [
         {
             label: 'somethingA',
-            values: data.toArray() || []
+            values: data.toArray()
         }
     ];
     return (

@@ -29,7 +29,8 @@ class AlertContainer extends Component {
 
     message() {
         const { currentTimerCount, uptimes } = this.props;
-        const average = _meanBy(uptimes.toArray(), u => u.y);
+        const average = _meanBy(uptimes.toArray(), u => u.y).toFixed(2);
+        console.log(average, "this is the average")
         return `High load generated an alert - load = ${average}, triggered at ${currentTimerCount}`;
     }
 
