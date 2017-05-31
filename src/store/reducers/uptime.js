@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
     case NEXT_UPTIME:
         counter1++;
-        counter2 = Math.random().toFixed(2);
+        counter2 = (Math.random() * 2.5).toFixed(2);
         return state.update('uptimes', list =>
                 list.push({ x: counter1, y: counter2 })
             );

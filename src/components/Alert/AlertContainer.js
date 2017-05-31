@@ -42,9 +42,8 @@ class AlertContainer extends Component {
 
         this.props.updateThershold(average, time);
 
-        if (parseFloat(average) < 1) {
-            this.showAlert('success', average);
-        } else {
+        if (parseFloat(average) > 1) {
+            // this.showAlert('success', average);
             this.showAlert('error', average);
         }
     }

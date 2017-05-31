@@ -31,7 +31,7 @@ I think that often these technologies are used because they are the cool new thi
 
 List of things I would improve:
 
-+ I would actually do some css (I just did not have time).
++ I would actually do some css (I just did not have time. I'm also not much of a designer).
 + I would add tests for all my reducers and actions at the very least.
 + I would add a node backend and us socket.io to get real data instead of mocking the data.
 + I would probably create my own alerts and not use a npm package. The ones I used are pretty ugly (I just did not have time).
