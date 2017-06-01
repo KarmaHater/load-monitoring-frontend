@@ -20,6 +20,13 @@ import { ALERT_OPTIONS } from './alertOptions';
 import { errorMessage, sucessMessage } from './alertMessages';
 
 class AlertContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            errorHasOccured: false
+        };
+    }
+
     componentWillReceiveProps(nextProps) {
         const { currentInterval, uptimes, currentTimerCount } = nextProps;
 
@@ -29,8 +36,8 @@ class AlertContainer extends Component {
             nextProps.currentTimerCount !== this.props.currentTimerCount &&
             this.props.currentTimerCount % UPTIME_FECTH_INTERVAL === 0
         ) {
-            //get the average every 10 seconds
-            this.fireAlert(average, nextProps.currentTimerCount);
+            this.fireAlert;
+            average, nextProps.currentTimerCount;
         }
 
         if (
@@ -44,13 +51,24 @@ class AlertContainer extends Component {
 
     fireAlert(average, time) {
         this.props.updateThershold(average, time);
+
         if (parseFloat(average) > 1) {
-            // warn the the average has gone over 1
-            this.showAlert('error', average);
+            this.fireErrorAlert();
         }
-        /// only fire if the threshol has gone over one
-        // this is the recovery time
-        // this.showAlert('success', average);
+
+        if (this.state.errorHasOccured && parseFloat(average) < 1) {
+            this.fireRecoverAlert();
+        }
+    }
+
+    fireErrorAlert() {
+        this.showAlert('error', average);
+        this.setState({ errorHasOccured: true });
+    }
+
+    fireRecoverAlert() {
+        this.showAlert('success', average);
+        this.setState({ errorHasOccured: false });
     }
 
     message(average, type) {

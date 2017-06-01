@@ -3,7 +3,7 @@ import { UPDATE_TIMER, UPDATE_INTERVAL } from '../constants';
 
 const initialState = Map({
     currentTimerCount: 1000,
-    currentInterval: 0
+    currentInterval: 1
 });
 
 export default (state = initialState, action) => {

@@ -18,7 +18,7 @@ class ThresholdContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    thresholds: selectThresholds(state) || [{ average: 1, time: 2 }]
+    thresholds: selectThresholds(state) || [{ average: 0, time: 0 }]
 });
 
 export default connect(mapStateToProps)(ThresholdContainer);
