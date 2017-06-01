@@ -9,7 +9,9 @@ class ThresholdContainer extends Component {
         return (
             <div>
                 <h1>These are the thresholds:</h1>
-                {this.props.thresholds.map(t => <Threshold item={t} />)}
+                {this.props.thresholds.map((t, i) => (
+                    <Threshold key={i} item={t} />
+                ))}
             </div>
         );
     }

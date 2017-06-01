@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 import { nextUptime, updateTimer } from './../../store/actions';
 import { selectCurrentTimerCount } from './../../store/selectors';
 import Timer from './Timer';
-
-const TIME_LIMIT = 600000;
-const TIMER_INTERVAL = 10000;
+import { RUN_TIME_LIMIT, UPTIME_FECTH_INTERVAL } from '../../utils/constants';
 
 class TimerContainer extends Component {
     componentDidMount() {
@@ -14,18 +12,18 @@ class TimerContainer extends Component {
     }
 
     componentWillMount() {
-        if (this.props.currentTimerCount === TIME_LIMIT) {
+        if (this.props.currentTimerCount === RUN_TIME_LIMIT) {
             clearInterval(this.interval);
         }
     }
 
     uptimeTimer() {
-        if (this.props.currentTimerCount % TIMER_INTERVAL === 0) {
+        if (this.props.currentTimerCount % UPTIME_FECTH_INTERVAL === 0) {
             this.props.nextUptime();
             this.props.updateTimer();
-        } else {
-            this.props.updateTimer();
         }
+
+        this.props.updateTimer();
     }
 
     render() {

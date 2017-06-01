@@ -2,61 +2,67 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Alert from 'react-alert';
-import { updateThershold } from './../../store/actions';
-import _meanBy from 'lodash/meanBy';
 
+import { updateThershold, updateInterval } from './../../store/actions';
 import {
-    selectCurrentTimerCount,
-    selectUptimes
+    selectCurrentInterval,
+    selectUptimes,
+    selectCurrentTimerCount
 } from './../../store/selectors';
 
-// const AVERAGE_UPTIME_INTERVAL = 120000;
-const AVERAGE_UPTIME_INTERVAL = 20000;
-
-const averageUptimes = (currentTimerCount, uptimes) => {
-    const currentUptimes = uptimes.toArray().slice(-2);
-    return _meanBy(currentUptimes, u => parseFloat(u.y)).toFixed(2);
-};
-
-const ALERT_OPTIONS = {
-    offset: 14,
-    position: 'top right',
-    time: 2000,
-    transition: 'scale'
-};
+import { currentAverage } from '../../utils/intervals';
+import {
+    TIME_LIMIT,
+    UPTIME_FECTH_INTERVAL,
+    TWO_MINUTES
+} from '../../utils/constants';
+import { ALERT_OPTIONS } from './alertOptions';
+import { errorMessage, sucessMessage } from './alertMessages';
 
 class AlertContainer extends Component {
     componentWillReceiveProps(nextProps) {
+        const { currentInterval, uptimes, currentTimerCount } = nextProps;
+
+        const average = currentAverage(currentInterval, uptimes);
+
         if (
             nextProps.currentTimerCount !== this.props.currentTimerCount &&
-            nextProps.currentTimerCount % AVERAGE_UPTIME_INTERVAL === 0
+            this.props.currentTimerCount % UPTIME_FECTH_INTERVAL === 0
         ) {
-            const { currentTimerCount, uptimes } = nextProps;
-            const average = averageUptimes(currentTimerCount, uptimes);
-
+            //get the average every 10 seconds
             this.fireAlert(average, nextProps.currentTimerCount);
+        }
+
+        if (
+            nextProps.currentTimerCount !== this.props.currentTimerCount &&
+            nextProps.currentTimerCount % TWO_MINUTES === 0
+        ) {
+            //every two minutes change the interval
+            this.props.updateInterval();
         }
     }
 
     fireAlert(average, time) {
-
         this.props.updateThershold(average, time);
-
         if (parseFloat(average) > 1) {
-            // this.showAlert('success', average);
+            // warn the the average has gone over 1
             this.showAlert('error', average);
         }
+        /// only fire if the threshol has gone over one
+        // this is the recovery time
+        // this.showAlert('success', average);
     }
 
-    message(average) {
+    message(average, type) {
         const { currentTimerCount } = this.props;
-
-        return `High load generated an alert - load = ${average}, triggered at ${currentTimerCount}`;
+        return type === 'success'
+            ? sucessMessage(average, currentTimerCount)
+            : errorMessage(average, currentTimerCount);
     }
 
     showAlert(type, average) {
         if (this.alert) {
-            this.alert.show(this.message(average), {
+            this.alert.show(this.message(average, type), {
                 time: 4000,
                 type
             });
@@ -69,13 +75,15 @@ class AlertContainer extends Component {
 }
 
 const mapStateToProps = state => ({
+    currentInterval: selectCurrentInterval(state),
     currentTimerCount: selectCurrentTimerCount(state),
     uptimes: selectUptimes(state)
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateThershold: bindActionCreators(updateThershold, dispatch)
+        updateThershold: bindActionCreators(updateThershold, dispatch),
+        updateInterval: bindActionCreators(updateInterval, dispatch)
     };
 };
 
