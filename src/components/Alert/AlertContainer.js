@@ -28,20 +28,17 @@ class AlertContainer extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { currentInterval, uptimes, currentTimerCount } = nextProps;
-
-        const average = currentAverage(currentInterval, uptimes);
+        const { currentTimerCount } = this.props;
 
         if (
-            nextProps.currentTimerCount !== this.props.currentTimerCount &&
-            this.props.currentTimerCount % UPTIME_FECTH_INTERVAL === 0
+            nextProps.currentTimerCount !== currentTimerCount &&
+            currentTimerCount % UPTIME_FECTH_INTERVAL === 0
         ) {
-            this.fireAlert;
-            average, nextProps.currentTimerCount;
+            this.fireAlert(nextProps.currentTimerCount);
         }
 
         if (
-            nextProps.currentTimerCount !== this.props.currentTimerCount &&
+            nextProps.currentTimerCount !== currentTimerCount &&
             nextProps.currentTimerCount % TWO_MINUTES === 0
         ) {
             //every two minutes change the interval
@@ -49,38 +46,40 @@ class AlertContainer extends Component {
         }
     }
 
-    fireAlert(average, time) {
+    fireAlert(time) {
+        const { average } = this.props;
         this.props.updateThershold(average, time);
 
         if (parseFloat(average) > 1) {
-            this.fireErrorAlert();
+            this.fireHighLoadAlert();
         }
 
         if (this.state.errorHasOccured && parseFloat(average) < 1) {
-            this.fireRecoverAlert();
+            debugger;
+            this.fireRecoveryAlert();
         }
     }
 
-    fireErrorAlert() {
-        this.showAlert('error', average);
+    fireHighLoadAlert() {
+        this.showAlert('error', this.props.average);
         this.setState({ errorHasOccured: true });
     }
 
-    fireRecoverAlert() {
-        this.showAlert('success', average);
+    fireRecoveryAlert() {
+        this.showAlert('success', this.props.average);
         this.setState({ errorHasOccured: false });
     }
 
-    message(average, type) {
-        const { currentTimerCount } = this.props;
+    message(type) {
+        const { currentTimerCount, average } = this.props;
         return type === 'success'
             ? sucessMessage(average, currentTimerCount)
             : errorMessage(average, currentTimerCount);
     }
 
-    showAlert(type, average) {
+    showAlert(type) {
         if (this.alert) {
-            this.alert.show(this.message(average, type), {
+            this.alert.show(this.message(this.props.average, type), {
                 time: 4000,
                 type
             });
@@ -93,9 +92,8 @@ class AlertContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    currentInterval: selectCurrentInterval(state),
     currentTimerCount: selectCurrentTimerCount(state),
-    uptimes: selectUptimes(state)
+    average: currentAverage(selectCurrentInterval(state), selectUptimes(state))
 });
 
 const mapDispatchToProps = dispatch => {

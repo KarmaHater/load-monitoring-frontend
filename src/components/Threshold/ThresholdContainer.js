@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { selectThresholds } from './../../store/selectors';
 import Threshold from './Threshold';
-import styles from './ThresholdStyles';
 
 class ThresholdContainer extends Component {
     render() {

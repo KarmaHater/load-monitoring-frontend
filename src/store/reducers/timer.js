@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
         const nextTimerCount = state.get('currentTimerCount') + 1000;
         return state.set('currentTimerCount', nextTimerCount);
     case UPDATE_INTERVAL:
-        return state.set('currentInterval', state.get('currentInterval') + 1)
+        return state.set('currentInterval', state.get('currentInterval') + 1);
     default:
         return state;
     }

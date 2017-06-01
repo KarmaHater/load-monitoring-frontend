@@ -3,7 +3,7 @@ import _meanBy from 'lodash/meanBy';
 // I feel like this could be smarter is it really hard coded for ten minutes.
 // the array pop off sets of 120 depending on the interval
 
-const x = (interval, uptimes) => {
+const x = interval => {
     const baseItems = 20;
     switch (interval) {
     case 1:
@@ -28,7 +28,7 @@ const x = (interval, uptimes) => {
 };
 
 export const currentAverage = (interval, uptimes) => {
-    const start = x(interval, uptimes)
-    const currentUptimes = uptimes.toArray().slice(start, uptimes.size)
+    const start = x(interval, uptimes);
+    const currentUptimes = uptimes.toArray().slice(start, uptimes.size);
     return _meanBy(currentUptimes, u => parseFloat(u.y)).toFixed(2);
 };
