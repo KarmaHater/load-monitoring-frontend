@@ -3,7 +3,7 @@ import styles from './ThresholdStyles';
 
 const Threshold = ({item}) => {
     return (
-        <div className={styles.thresholdContainer(item.average)}>
+        <div className={styles.thresholdContainer(item.uptime)}>
             The threshold for past 2 minutes {item.time/1000} seconds was {item.average}
         </div>
     );

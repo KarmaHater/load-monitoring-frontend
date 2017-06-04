@@ -1,34 +1,20 @@
 import _meanBy from 'lodash/meanBy';
+import { UPDATE_TIMER, UPDATE_INTERVAL, INTERVAL_LIMIT } from './constants';
 
-// I feel like this could be smarter is it really hard coded for ten minutes.
-// the array pop off sets of 120 depending on the interval
+const baseItems = 20;
+const x = {};
 
-const x = interval => {
-    const baseItems = 20;
-    switch (interval) {
-    case 1:
-            //1nd two minutes
-        return 0;
-    case 2:
-            //2nd two minutes
-        return baseItems;
-    case 3:
-            //3nd two minutes
-        return baseItems * 2;
-    case 4:
-            //4th two minutes
-        return baseItems * 3;
-    case 5:
-            //5th two minutes
-        return baseItems * 4;
-    default:
-            //first two minutes
-        return [];
-    }
-};
+let condition = INTERVAL_LIMIT; //5
+
+while (condition > 0) {
+    x[condition] = baseItems * (condition - 1)
+    condition -= 1;
+}
 
 export const currentAverage = (interval, uptimes) => {
-    const start = x(interval, uptimes);
-    const currentUptimes = uptimes.toArray().slice(start, uptimes.size);
+    console.log(interval,  "interval")
+    const start = x[interval];
+    console.log(start, 'start')
+    const currentUptimes = uptimes.toArray().slice(start, uptimes.size -1);
     return _meanBy(currentUptimes, u => parseFloat(u.y)).toFixed(2);
 };

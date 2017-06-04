@@ -14,7 +14,7 @@ import { currentAverage } from '../../utils/intervals';
 import {
     TIME_LIMIT,
     UPTIME_FECTH_INTERVAL,
-    TWO_MINUTES
+    UPTIME_FECTH_INTERVAL_AVERAGE
 } from '../../utils/constants';
 import { ALERT_OPTIONS } from './alertOptions';
 import { errorMessage, sucessMessage } from './alertMessages';
@@ -39,9 +39,10 @@ class AlertContainer extends Component {
 
         if (
             nextProps.currentTimerCount !== currentTimerCount &&
-            nextProps.currentTimerCount % TWO_MINUTES === 0
+            nextProps.currentTimerCount % UPTIME_FECTH_INTERVAL_AVERAGE === 0
         ) {
             //every two minutes change the interval
+            debugger
             this.props.updateInterval();
         }
     }
