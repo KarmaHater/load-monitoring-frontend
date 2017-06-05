@@ -8,7 +8,7 @@ import { RUN_TIME_LIMIT, UPTIME_FECTH_INTERVAL } from '../../utils/constants';
 
 class TimerContainer extends Component {
     componentDidMount() {
-        this.sinterval = setInterval(::this.uptimeTimer, 1000);
+        this.interval = setInterval(::this.uptimeTimer, 1000);
     }
 
     componentWillMount() {
