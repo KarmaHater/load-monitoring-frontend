@@ -14,7 +14,7 @@ import { currentAverage } from '../../utils/intervals';
 import {
     TIME_LIMIT,
     UPTIME_FECTH_INTERVAL,
-    UPTIME_FECTH_INTERVAL_AVERAGE
+    AVERAGE_UPTIME_INTERVAL
 } from '../../utils/constants';
 import { ALERT_OPTIONS } from './alertOptions';
 import { errorMessage, sucessMessage } from './alertMessages';
@@ -34,15 +34,16 @@ class AlertContainer extends Component {
             nextProps.currentTimerCount !== currentTimerCount &&
             currentTimerCount % UPTIME_FECTH_INTERVAL === 0
         ) {
-            this.fireAlert(nextProps.currentTimerCount);
+            this.fireAlert(currentTimerCount);
         }
 
         if (
             nextProps.currentTimerCount !== currentTimerCount &&
-            nextProps.currentTimerCount % UPTIME_FECTH_INTERVAL_AVERAGE === 0
+            currentTimerCount % AVERAGE_UPTIME_INTERVAL === 0
         ) {
             //every two minutes change the interval
             debugger
+
             this.props.updateInterval();
         }
     }
@@ -51,12 +52,11 @@ class AlertContainer extends Component {
         const { average } = this.props;
         this.props.updateThershold(average, time);
 
-        if (parseFloat(average) > 1) {
+        if (average > 1) {
             this.fireHighLoadAlert();
         }
 
-        if (this.state.errorHasOccured && parseFloat(average) < 1) {
-            debugger;
+        if (this.state.errorHasOccured && average < 1) {
             this.fireRecoveryAlert();
         }
     }

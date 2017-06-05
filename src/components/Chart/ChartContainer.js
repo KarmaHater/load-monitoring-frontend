@@ -7,7 +7,7 @@ class ChartContainer extends Component {
     render() {
         return (
             <div>
-                <Chart data={this.props.uptimes} />
+                <Chart data={this.props.uptimes.toArray()} />
             </div>
         );
     }

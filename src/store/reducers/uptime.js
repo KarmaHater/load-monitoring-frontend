@@ -3,7 +3,7 @@ import { NEXT_UPTIME } from '../constants';
 import { mockedUptime } from '../data/mockedUptime';
 
 const initialState = Map({
-    uptimes: List([{ x: 0, y: 0 }])
+    uptimes: List()
 });
 
 export default (state = initialState, action) => {
