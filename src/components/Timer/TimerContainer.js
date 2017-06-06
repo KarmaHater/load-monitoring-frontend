@@ -11,7 +11,7 @@ class TimerContainer extends Component {
         this.interval = setInterval(::this.uptimeTimer, 1000);
     }
 
-    componentWillMount() {
+    componentWillUnMount() {
         if (this.props.currentTimerCount === RUN_TIME_LIMIT) {
             clearInterval(this.interval);
         }
