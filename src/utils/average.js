@@ -16,7 +16,7 @@ createIntervalsHash();
 
 const setStartIndex = interval => intervalsHash[interval];
 
-export const currentAverage = (interval, uptimes) => {
+export const getAverage = (interval, uptimes) => {
     console.log(interval, 'interval');
     console.log(setStartIndex(interval), 'start');
     const currentUptimes = uptimes

@@ -7,10 +7,10 @@ import { updateThershold, updateInterval } from './../../store/actions';
 import {
     selectCurrentInterval,
     selectUptimes,
-    selectCurrentTimerCount
+    selectCurrentTimerCount,
+    selectAverage
 } from './../../store/selectors';
 
-import { currentAverage } from '../../utils/intervals';
 import {
     TIME_LIMIT,
     UPTIME_FECTH_INTERVAL,
@@ -18,6 +18,11 @@ import {
 } from '../../utils/constants';
 import { ALERT_OPTIONS } from './alertOptions';
 import { errorMessage, sucessMessage } from './alertMessages';
+
+const message = (type, currentTimerCount, average) =>
+    type === 'success'
+        ? sucessMessage(average, currentTimerCount)
+        : errorMessage(average, currentTimerCount);
 
 class AlertContainer extends Component {
     constructor(props) {
@@ -42,7 +47,7 @@ class AlertContainer extends Component {
             currentTimerCount % AVERAGE_UPTIME_INTERVAL === 0
         ) {
             //every two minutes change the interval
-            debugger
+            debugger;
 
             this.props.updateInterval();
         }
@@ -71,16 +76,10 @@ class AlertContainer extends Component {
         this.setState({ errorHasOccured: false });
     }
 
-    message(type) {
-        const { currentTimerCount, average } = this.props;
-        return type === 'success'
-            ? sucessMessage(average, currentTimerCount)
-            : errorMessage(average, currentTimerCount);
-    }
-
     showAlert(type) {
+        const { average, currentTimerCount } = this.props;
         if (this.alert) {
-            this.alert.show(this.message(this.props.average, type), {
+            this.alert.show(message(type, currentTimerCount, average), {
                 time: 4000,
                 type
             });
@@ -94,7 +93,7 @@ class AlertContainer extends Component {
 
 const mapStateToProps = state => ({
     currentTimerCount: selectCurrentTimerCount(state),
-    average: currentAverage(selectCurrentInterval(state), selectUptimes(state))
+    average: selectAverage(state)
 });
 
 const mapDispatchToProps = dispatch => {
