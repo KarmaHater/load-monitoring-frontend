@@ -8,7 +8,7 @@ export default ({ data }) => {
     const chartData = [
         {
             label: 'somethingA',
-            values: [...data, {x: 0, y: 0}]
+            values: [{x: 0, y: 0}, ...data]
         }
     ];
     return (

@@ -7,7 +7,6 @@ export const updateTimer = () => {
 };
 
 export const updateInterval = () => {
-    debugger
     return {
         type: UPDATE_INTERVAL
     };
