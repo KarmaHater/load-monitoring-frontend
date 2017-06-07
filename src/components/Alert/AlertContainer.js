@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Alert from 'react-alert';
 
-import { updateThershold, updateInterval } from './../../store/actions';
+import { updateThershold, updateAverageInterval } from './../../store/actions';
 import {
     selectCurrentInterval,
     selectUptimes,
@@ -24,6 +24,15 @@ const message = (type, currentTimerCount, average) =>
         ? sucessMessage(average, currentTimerCount)
         : errorMessage(average, currentTimerCount);
 
+const shouldFireAlert = (nextProps, currentTimerCount) =>
+    nextProps.currentTimerCount !== currentTimerCount &&
+    currentTimerCount % UPTIME_FECTH_INTERVAL === 0;
+
+const nextAverageInterval = (nextProps, currentTimerCount) =>
+    //every two minutes change the interval
+    nextProps.currentTimerCount !== currentTimerCount &&
+    currentTimerCount % AVERAGE_UPTIME_INTERVAL === 0;
+
 class AlertContainer extends Component {
     constructor(props) {
         super(props);
@@ -35,21 +44,13 @@ class AlertContainer extends Component {
     componentWillReceiveProps(nextProps) {
         const { currentTimerCount } = this.props;
 
-        if (
-            nextProps.currentTimerCount !== currentTimerCount &&
-            currentTimerCount % UPTIME_FECTH_INTERVAL === 0
-        ) {
+        if (shouldFireAlert(nextProps, currentTimerCount)) {
             this.fireAlert(currentTimerCount);
         }
 
-        if (
-            nextProps.currentTimerCount !== currentTimerCount &&
-            currentTimerCount % AVERAGE_UPTIME_INTERVAL === 0
-        ) {
-            //every two minutes change the interval
+        if (nextAverageInterval(nextProps, currentTimerCount)) {
             debugger;
-
-            this.props.updateInterval();
+            this.props.updateAverageInterval();
         }
     }
 
@@ -99,7 +100,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         updateThershold: bindActionCreators(updateThershold, dispatch),
-        updateInterval: bindActionCreators(updateInterval, dispatch)
+        updateAverageInterval: bindActionCreators(updateAverageInterval, dispatch)
     };
 };
 

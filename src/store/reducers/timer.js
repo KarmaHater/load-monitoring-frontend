@@ -1,9 +1,9 @@
 import { Map } from 'immutable';
-import { UPDATE_TIMER, UPDATE_INTERVAL } from '../constants';
+import { UPDATE_TIMER, UPDATE_AVERAGE_INTERVAL } from '../constants';
 
 const initialState = Map({
     currentTimerCount: 1000,
-    currentInterval: 1
+    currentAverageInterval: 1
 });
 
 export default (state = initialState, action) => {
@@ -11,8 +11,8 @@ export default (state = initialState, action) => {
     case UPDATE_TIMER:
         const nextTimerCount = state.get('currentTimerCount') + 1000;
         return state.set('currentTimerCount', nextTimerCount);
-    case UPDATE_INTERVAL:
-        return state.set('currentInterval', state.get('currentInterval') + 1);
+    case UPDATE_AVERAGE_INTERVAL:
+        return state.set('currentAverageInterval', state.get('currentAverageInterval') + 1);
     default:
         return state;
     }

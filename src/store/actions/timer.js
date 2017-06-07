@@ -1,4 +1,4 @@
-import { UPDATE_TIMER, UPDATE_INTERVAL } from '../constants';
+import { UPDATE_TIMER, UPDATE_AVERAGE_INTERVAL } from '../constants';
 
 export const updateTimer = () => {
     return {
@@ -6,8 +6,8 @@ export const updateTimer = () => {
     };
 };
 
-export const updateInterval = () => {
+export const updateAverageInterval = () => {
     return {
-        type: UPDATE_INTERVAL
+        type: UPDATE_AVERAGE_INTERVAL
     };
 };

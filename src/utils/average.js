@@ -1,27 +1,26 @@
 import _meanBy from 'lodash/meanBy';
 import { UPDATE_TIMER, UPDATE_INTERVAL, INTERVAL_LIMIT } from './constants';
 
-const intervalsHash = {};
-const createIntervalsHash = () => {
-    const baseItemCount = 12;
-    let currentInterval = INTERVAL_LIMIT; //5
+//creates a hash that stores the starting index of each averageInterval
+const startingIndexStore = {};
 
-    while (currentInterval > 0) {
-        intervalsHash[currentInterval] = baseItemCount * (currentInterval - 1);
-        currentInterval -= 1;
+const createStartingIndexStore = () => {
+    const baseItemCount = 12;
+    let averageInterval = INTERVAL_LIMIT; //5
+
+    while (averageInterval > 0) {
+        startingIndexStore[averageInterval] = baseItemCount * (averageInterval - 1);
+        averageInterval -= 1;
     }
 };
 
-createIntervalsHash();
+createStartingIndexStore();
 
-const setStartIndex = interval => intervalsHash[interval];
+const start = interval => startingIndexStore[interval];
 
 export const getAverage = (interval, uptimes) => {
-    console.log(interval, 'interval');
-    console.log(setStartIndex(interval), 'start');
     const currentUptimes = uptimes
         .toArray()
-        .slice(setStartIndex(interval), uptimes.size);
-    console.log(currentUptimes);
+        .slice(start(interval), uptimes.size);
     return parseFloat(_meanBy(currentUptimes, u => parseFloat(u.y)).toFixed(2));
 };
