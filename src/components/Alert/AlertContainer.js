@@ -11,27 +11,15 @@ import {
     selectAverage
 } from './../../store/selectors';
 
-import {
-    TIME_LIMIT,
-    UPTIME_FECTH_INTERVAL,
-    AVERAGE_UPTIME_INTERVAL
-} from '../../utils/constants';
-import { ALERT_OPTIONS } from './alertOptions';
-import { errorMessage, sucessMessage } from './alertMessages';
+import { TIME_LIMIT } from '../../utils/constants';
+import { ALERT_OPTIONS } from './utils/alertOptions';
+import { shouldFireAlert, nextAverageInterval } from './utils/helpers';
+import { errorMessage, sucessMessage } from './utils/alertMessages';
 
 const message = (type, currentTimerCount, average) =>
     type === 'success'
         ? sucessMessage(average, currentTimerCount)
         : errorMessage(average, currentTimerCount);
-
-const shouldFireAlert = (nextProps, currentTimerCount) =>
-    nextProps.currentTimerCount !== currentTimerCount &&
-    currentTimerCount % UPTIME_FECTH_INTERVAL === 0;
-
-const nextAverageInterval = (nextProps, currentTimerCount) =>
-    //every two minutes change the interval
-    nextProps.currentTimerCount !== currentTimerCount &&
-    currentTimerCount % AVERAGE_UPTIME_INTERVAL === 0;
 
 class AlertContainer extends Component {
     constructor(props) {
@@ -45,6 +33,7 @@ class AlertContainer extends Component {
         const { currentTimerCount } = this.props;
 
         if (shouldFireAlert(nextProps, currentTimerCount)) {
+            debugger;
             this.fireAlert(currentTimerCount);
         }
 
@@ -100,7 +89,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         updateThershold: bindActionCreators(updateThershold, dispatch),
-        updateAverageInterval: bindActionCreators(updateAverageInterval, dispatch)
+        updateAverageInterval: bindActionCreators(
+            updateAverageInterval,
+            dispatch
+        )
     };
 };
 
