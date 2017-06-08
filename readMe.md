@@ -1,5 +1,13 @@
 # load-monitoring-frontend
 
+### Run Project
+
+npm install 
+
+npm start
+
+#### What you will find
+
 + Application has key statistics as well as a history of load over the past 10 minutes in 10s intervals.
 
 + All alerting thresholds are stored.
