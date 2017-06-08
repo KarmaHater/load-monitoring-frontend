@@ -1,6 +1,10 @@
-import {combineReducers} from 'redux';
-import dummy from './dummy-reducer';
+import { combineReducers } from 'redux-immutable';
+import uptime from './uptime';
+import timer from './timer';
+import threshold from './threshold';
 
 export default combineReducers({
-    dummy
+    uptime,
+    timer,
+    threshold
 });
