@@ -1,5 +1,5 @@
 export const selectCurrentTimerCount = state =>
     state.getIn(['timer', 'currentTimerCount']);
 
-export const selectCurrentInterval = state =>
+export const selectAverageInterval = state =>
     state.getIn(['timer', 'currentAverageInterval']);

@@ -5,7 +5,6 @@ import Alert from 'react-alert';
 
 import { updateThershold, updateAverageInterval } from './../../store/actions';
 import {
-    selectCurrentInterval,
     selectUptimes,
     selectCurrentTimerCount,
     selectAverage
@@ -33,7 +32,6 @@ class AlertContainer extends Component {
         const { currentTimerCount } = this.props;
 
         if (shouldFireAlert(nextProps, currentTimerCount)) {
-            debugger;
             this.fireAlert(currentTimerCount);
         }
 
