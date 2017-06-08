@@ -2,7 +2,7 @@
 
 ### Run Project
 
-npm install 
+npm install
 
 npm start
 
@@ -24,3 +24,6 @@ List of things I would improve:
 + Tests for all my reducers and actions.
 + Add a node backend and us socket.io to get real data instead of mocking the data.
 + Create my own alerts and not use a npm package. The ones I used are petty ugly.
+
+![screencast 2017-06-08 at 11 12 19 am 1](https://user-images.githubusercontent.com/6765008/26922159-88992a86-4c3e-11e7-822a-47df106b7c1c.gif)
+

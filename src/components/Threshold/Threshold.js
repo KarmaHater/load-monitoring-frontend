@@ -4,11 +4,11 @@ import styles from './ThresholdStyles';
 const Threshold = ({ item }) => {
     return (
         <div className={styles.thresholdContainer(item.average)}>
-            The threshold for past 2 minutes
+            The threshold average at
             {' '}
             {item.time / 1000}
             {' '}
-            seconds was
+            is
             {' '}
             {item.average}
         </div>
