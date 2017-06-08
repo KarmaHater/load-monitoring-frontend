@@ -36,7 +36,6 @@ class AlertContainer extends Component {
         }
 
         if (nextAverageInterval(nextProps, currentTimerCount)) {
-            debugger;
             this.props.updateAverageInterval();
         }
     }
