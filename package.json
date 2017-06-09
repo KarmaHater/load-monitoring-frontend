@@ -10,6 +10,7 @@
     "start": "webpack-dev-server --hot --progress --colors",
     "stylelint": "./node_modules/.bin/stylelint src/styles/*.scss",
     "stylelint:fix": "./node_modules/.bin/stylefmt -R src/styles/",
+<<<<<<<
     "build": "webpack --progress --colors"
   },
   "keywords": [
